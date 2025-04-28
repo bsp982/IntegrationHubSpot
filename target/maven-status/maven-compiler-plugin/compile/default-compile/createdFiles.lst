@@ -1,0 +1,7 @@
+com/integrationhubspot/IntegrationhubspotApplication.class
+com/integrationhubspot/service/OAuthService.class
+com/integrationhubspot/service/HubSpotService.class
+com/integrationhubspot/controller/OAuthController.class
+com/integrationhubspot/model/ContactDTO.class
+com/integrationhubspot/controller/WebhookController.class
+com/integrationhubspot/controller/ContactController.class

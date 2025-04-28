@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "80332a43-ab9f-458b-9ebd-8386f26c7292",
+		"name": "hubspot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44481001",
+		"_collection_link": "https://bpereira-4414366.postman.co/workspace/Bpereira's-Workspace~a66f6e0e-061a-47cb-8a09-52379a80e487/collection/44481001-80332a43-ab9f-458b-9ebd-8386f26c7292?action=share&source=collection_link&creator=44481001"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/contacts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"firstName\": \"João\",\n    \"lastName\": \"Silva\",\n    \"email\": \"joao.silva@email.com\"\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/contacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/contacts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+} 
