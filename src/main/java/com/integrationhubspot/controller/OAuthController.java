@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.integrationhubspot.service.OAuthService;
+import org.springframework.stereotype.Controller;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/oauth")
@@ -42,5 +45,15 @@ public class OAuthController {
         } catch (Exception e) {
             return "Erro ao autenticar: " + e.getMessage();
         }
+    }
+
+    @GetMapping("/login")
+    public void redirectToHubspot(HttpServletResponse response) throws IOException {
+        String url = AUTH_URL +
+                "?client_id=" + clientId +
+                "&redirect_uri=" + redirectUri +
+                "&scope=" + SCOPE +
+                "&response_type=code";
+        response.sendRedirect(url);
     }
 } 
