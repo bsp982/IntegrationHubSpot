@@ -166,8 +166,6 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
 - **POST** `/webhook/contact-creation`
 - **Descrição:** Endpoint para receber notificações de criação de contatos do HubSpot (webhook).
 - **Body:** Recebe o payload enviado pelo HubSpot.
-- **Obs:** Para testar localmente, use [ngrok](https://ngrok.com/) para expor sua porta 8080 e cadastre a URL pública no painel do HubSpot.
-
 ---
 
 ## Exemplo de uso com Postman
