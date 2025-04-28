@@ -22,6 +22,7 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
 - **Exemplos práticos de uso** (Postman/cURL)
 - **Pronto para deploy em cloud** (basta configurar variáveis de ambiente)
 - **README completo e didático**
+- **Fluxo OAuth automatizado**: login com redirecionamento automático, sem necessidade de copiar/colar URLs
 
 ---
 
@@ -52,9 +53,9 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
 1. **Inicie a aplicação**
    - Execute `./mvnw spring-boot:run` na raiz do projeto.
 
-2. **Obtenha a URL de autorização OAuth**
-   - Acesse `http://localhost:8080/oauth/authorize-url` no navegador.
-   - Copie a URL exibida e cole no navegador.
+2. **Inicie o login OAuth de forma automática**
+   - Acesse `http://localhost:8080/oauth/login` no navegador.
+   - Você será redirecionado automaticamente para o HubSpot para autorizar o app.
 
 3. **Autorize o app no HubSpot**
    - Faça login e autorize o app.
@@ -78,11 +79,7 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
    - Clique em **Send**. Você verá a lista de contatos cadastrados no HubSpot.
 
 6. **(Opcional) Teste o recebimento de webhooks**
-   - Use [ngrok](https://ngrok.com/) para expor sua porta 8080:
-     ```bash
-     ngrok http 8080
-     ```
-   - No painel do HubSpot, cadastre a URL pública do ngrok em `/webhook/contact-creation`.
+   - No painel do HubSpot, cadastre o endpoint `/webhook/contact-creation`.
    - Crie um contato manualmente no HubSpot e veja o log do backend recebendo o evento.
 
 ---
@@ -90,8 +87,8 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
 ## Fluxo de uso detalhado
 
 1. **Inicie a aplicação**
-2. **Acesse `/oauth/authorize-url`**
-   - Retorna a URL para autorizar o app no HubSpot
+2. **Acesse `/oauth/login`**
+   - Você será redirecionado automaticamente para autorizar o app no HubSpot
 3. **Autorize o app no HubSpot**
    - Você será redirecionado para `/oauth/callback?code=...`
    - O token será salvo em memória
@@ -103,15 +100,19 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
 
 ## Endpoints principais
 
-### 1. Geração da URL de autorização OAuth
+### 1. Login OAuth automatizado
+- **GET** `/oauth/login`
+- **Descrição:** Redireciona automaticamente o usuário para a tela de autorização do HubSpot, facilitando o início do fluxo OAuth.
+
+### 2. Geração da URL de autorização OAuth (manual)
 - **GET** `/oauth/authorize-url`
-- **Descrição:** Retorna a URL para iniciar o fluxo OAuth no HubSpot.
+- **Descrição:** Retorna a URL para iniciar o fluxo OAuth no HubSpot (útil para testes manuais ou integração com frontend).
 - **Exemplo de resposta:**
   ```
   https://app.hubspot.com/oauth/authorize?client_id=...&redirect_uri=...&scope=...
   ```
 
-### 2. Callback OAuth
+### 3. Callback OAuth
 - **GET** `/oauth/callback?code=...`
 - **Descrição:** Recebe o código do HubSpot, troca pelo token e armazena em memória.
 - **Resposta de sucesso:**
@@ -119,7 +120,7 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
   Autenticação realizada com sucesso! Token: {"access_token":"...", ...}
   ```
 
-### 3. Criação de Contatos
+### 4. Criação de Contatos
 - **POST** `/contacts`
 - **Descrição:** Cria um contato no HubSpot.
 - **Body (JSON):**
@@ -149,7 +150,7 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
   }
   ```
 
-### 4. Listagem de Contatos
+### 5. Listagem de Contatos
 - **GET** `/contacts`
 - **Descrição:** Lista todos os contatos do HubSpot.
 - **Exemplo cURL:**
@@ -166,10 +167,12 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
   }
   ```
 
-### 5. Recebimento de Webhook para Criação de Contatos
+### 6. Recebimento de Webhook para Criação de Contatos
 - **POST** `/webhook/contact-creation`
 - **Descrição:** Endpoint para receber notificações de criação de contatos do HubSpot (webhook).
 - **Body:** Recebe o payload enviado pelo HubSpot.
+- **Obs:** Para testar localmente, use [ngrok](https://ngrok.com/) para expor sua porta 8080 e cadastre a URL pública no painel do HubSpot.
+
 ---
 
 ## Exemplo de uso com Postman
@@ -190,7 +193,7 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
 - **Conta não tem acesso aos escopos:**
   - Use uma conta de desenvolvedor ou ajuste os escopos do app
 - **Webhook não chega:**
-  - Use ngrok para expor seu endpoint local
+  - Verifique se o HubSpot consegue acessar seu endpoint local (em ambiente de produção, use um domínio público)
 
 ---
 
