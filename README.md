@@ -77,11 +77,6 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
 5. **Teste a listagem de contatos**
    - No Postman, selecione a requisição `GET http://localhost:8080/contacts`.
    - Clique em **Send**. Você verá a lista de contatos cadastrados no HubSpot.
-
-6. **(Opcional) Teste o recebimento de webhooks**
-   - No painel do HubSpot, cadastre o endpoint `/webhook/contact-creation`.
-   - Crie um contato manualmente no HubSpot e veja o log do backend recebendo o evento.
-
 ---
 
 ## Fluxo de uso detalhado
@@ -192,8 +187,6 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
   - Verifique se a URL cadastrada no HubSpot é idêntica à do `application.properties`
 - **Conta não tem acesso aos escopos:**
   - Use uma conta de desenvolvedor ou ajuste os escopos do app
-- **Webhook não chega:**
-  - Verifique se o HubSpot consegue acessar seu endpoint local (em ambiente de produção, use um domínio público)
 
 ---
 
@@ -219,3 +212,4 @@ O projeto foi estruturado para ser didático, seguro e facilmente extensível pa
 
 ## Contato
 Dúvidas, sugestões ou feedback? Fique à vontade para entrar em contato! 
+
